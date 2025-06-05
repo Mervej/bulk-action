@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bulk Action Monitor</title>
+    <script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
+</head>
+<body>
+    <div>
+        <input type="text" id="actionId" placeholder="Enter Action ID">
+        <button onclick="subscribeToAction()">Subscribe</button>
+        <button onclick="unsubscribeFromAction()">Unsubscribe</button>
+    </div>
+    <div id="updates"></div>
+
+    <script>
+        const socket = io('http://localhost:3000');
+        const updatesDiv = document.getElementById('updates');
+
+        function subscribeToAction() {
+            const actionId = document.getElementById('actionId').value;
+            socket.emit('subscribe', actionId);
+            console.log(`Subscribed to action: ${actionId}`);
+            updatesDiv.innerHTML += `<p>Subscribed to action: ${actionId}</p>`;
+        }
+
+        function unsubscribeFromAction() {
+            const actionId = document.getElementById('actionId').value;
+            socket.emit('unsubscribe', actionId);
+            console.log(`Unsubscribed from action: ${actionId}`);
+            updatesDiv.innerHTML += `<p>Unsubscribed from action: ${actionId}</p>`;
+        }
+
+        // Listen for action updates
+        socket.on('actionUpdate', (update) => {
+            console.log('Received update:', update);
+            updatesDiv.innerHTML += `
+                <p>
+                    Action ${update.id}: 
+                    Status: ${update.status}, 
+                    Progress: ${update.stats?.success || 0}/${update.stats?.total || 0}
+                </p>
+            `;
+        });
+
+        // Connection status handlers
+        socket.on('connect', () => {
+            console.log('Connected to WebSocket server');
+            updatesDiv.innerHTML += '<p>Connected to server</p>';
+        });
+
+        socket.on('disconnect', () => {
+            console.log('Disconnected from WebSocket server');
+            updatesDiv.innerHTML += '<p>Disconnected from server</p>';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+# Compiled output
+/dist
+/node_modules
+/build
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# OS
+.DS_Store
+
+# Tests
+/coverage
+/.nyc_output
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Temporary files
+*.swp
+*.swo
+tmp/
+temp/
+
+# Database
+*.sqlite
+mongodb/
+redis/
+
+# Test files
+test-data.csv
+test-files/
+upload/
+
+# Lock files
+package-lock.json
+yarn.lock
+
+# Documentation
+/docs
+
+# Local development
+docker-compose.override.yml
