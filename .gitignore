@@ -48,11 +48,6 @@ temp/
 mongodb/
 redis/
 
-# Test files
-test-data.csv
-test-files/
-upload/
-
 # Lock files
 package-lock.json
 yarn.lock
